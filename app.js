@@ -1,6 +1,10 @@
-// Requires
+// Imports
 var express = require('express')
 var mongoose = require('mongoose')
+
+// Importar Rutas
+var appRoutes = require('./routes/app.route')
+var usuarioRoutes = require('./routes/usuario.route')
 
 // Inicializar variables
 var server = express()
@@ -24,13 +28,9 @@ mongoose.connect(URI, {
   .catch((error) => console.error(error))
 mongoose.Promise = global.Promise
 
-// Rutas
-server.get('/', (req, res, next) => {
-  res.status(200).json({
-    success: true,
-    message: 'Response get successfully'
-  })
-})
+// rutas
+server.use('/', appRoutes)
+server.use('/usuarios', usuarioRoutes)
 
 // Escuchar peticiones
 server.listen(PORT, () => {
