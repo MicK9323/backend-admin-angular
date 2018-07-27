@@ -15,7 +15,7 @@ exports.login = (req, res) => {
       if (usuario) {
         if (bcrypt.compareSync(body.password, usuario.password)) {
           usuario.password = '*********';
-          let token = auth.generateToken(usuario, 60*1);
+          let token = auth.generateToken(usuario, 60*60*1);
           res.status(200).json({
             success: true,
             usuario: usuario,
