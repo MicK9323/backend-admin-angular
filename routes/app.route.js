@@ -1,9 +1,9 @@
-var express = require('express')
+const express = require('express');
 // Llamar controlador
-var usuarioController = require('../controllers/app.controller')
+const usuarioController = require('../controllers/app.controller');
 
-var router = express.Router()
+let router = express.Router();
 
-router.get('/', usuarioController.appTest)
+router.get('/test', usuarioController.appTest);
 
-module.exports = router
+module.exports = router;
