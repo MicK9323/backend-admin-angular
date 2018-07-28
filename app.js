@@ -5,8 +5,9 @@ const bodyParser = require('body-parser');
 
 // Importar Rutas
 let appRoutes = require('./routes/app.route');
-let usuarioRoutes = require('./routes/usuario.route');
 let loginRoutes = require('./routes/login.route');
+let usuarioRoutes = require('./routes/usuario.route');
+let hospitalRoutes = require('./routes/hospital.route');
 
 
 // Inicializar variables
@@ -37,8 +38,9 @@ mongoose.Promise = global.Promise;
 
 // rutas
 server.use('/api', appRoutes);
-server.use('/api', usuarioRoutes);
 server.use('/api', loginRoutes);
+server.use('/api', usuarioRoutes);
+server.use('/api', hospitalRoutes);
 
 // Escuchar peticiones
 server.listen(PORT, () => {

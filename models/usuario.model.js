@@ -1,7 +1,7 @@
-const mongoose = require('mongoose')
-const uniqueValidator = require('mongoose-unique-validator')
+const mongoose = require('mongoose');
+const uniqueValidator = require('mongoose-unique-validator');
 
-const Schema = mongoose.Schema
+let Schema = mongoose.Schema;
 
 const validRoles = {
   values: ['ADMIN_ROLE', 'USER_ROLE', 'VISIT_ROLE'],
@@ -14,7 +14,7 @@ const usuarioSchema = new Schema({
   password: { type: String, required: [true, 'Contraseña necesaria'] },
   img: { type: String, required: false },
   role: { type: String, required: true, default: 'USER_ROLE', enum: validRoles }
-})
+});
 
 usuarioSchema.plugin(uniqueValidator, {message: 'El {PATH} ya se encuentra registrado'})
 
