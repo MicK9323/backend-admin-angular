@@ -1,5 +1,6 @@
 const params = {
-    SEED: 'Dk21jjku-Kb558jz4'
+    SEED: 'z+r=ZR.p$nYT9q]36I',
+    MAIN: '/api'
 }
 
 module.exports = params;

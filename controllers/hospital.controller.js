@@ -15,7 +15,8 @@ exports.test = (req, res) => {
 // =======================================================
 exports.getHospitals = (req, res) => {
     Hospital.find({})
-            .populate({path: 'user', select: '_id name'})
+            .populate({path: 'requestUser', select: '_id name'})
+            .populate({path: 'updatedUser', select: '_id name'})
             .exec()
             .then(hospitals => {
                 if (hospitals.length > 0) {
