@@ -6,10 +6,10 @@ const params = require('../global/params');
 // Generar Token
 // =======================================================
 
-exports.generateToken = (payload, time) => {
+exports.generateToken = (payload) => {
     return jwt.sign({usuario: payload},
                     params.SEED,
-                    {expiresIn: time});
+                    {expiresIn: params.EXPIRED_TIME});
 }
 
 // =======================================================
