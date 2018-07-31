@@ -14,15 +14,20 @@ exports.test = (req, res) => {
 // Listar medicos
 // =======================================================
 exports.getAll = (req, res) => {
-    Medico.find({})
-          .populate({path: 'requestUser', select: '_id name'})
-          .populate({path: 'hospital', select: '_id name'})
-          .exec()
-          .then(medicos => {
-            if (medicos.length > 0) {
+    let page = req.query.page || 1;
+    let docs = req.query.docs || 5;
+    Medico.paginate({},
+                    {populate: [{path: 'requestUser', select: '_id name'}, 
+                                {path: 'hospital', select: '_id name'}],
+                    page: page,
+                    limit: docs})
+          .then(result => {
+            if (result.total > 0) {
                 return res.status(200).json({
                     success: true,
-                    medicos: medicos
+                    pages: result.pages,
+                    page: result.page,
+                    medicos: result.docs
                 });
             } else {
                 return res.status(206).json({
@@ -33,7 +38,7 @@ exports.getAll = (req, res) => {
           }).catch(err => {
             return res.status(500).json({
                 success: false,
-                message: 'Error al listar los medicos regstrados',
+                message: 'Error al intentar listar los medicos registrados',
                 error: err
             });
           });

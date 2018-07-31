@@ -14,15 +14,17 @@ exports.test = (req, res) => {
 // Listar hospitales
 // =======================================================
 exports.getHospitals = (req, res) => {
-    Hospital.find({})
-            .populate({path: 'requestUser', select: '_id name'})
-            .populate({path: 'updatedUser', select: '_id name'})
-            .exec()
-            .then(hospitals => {
-                if (hospitals.length > 0) {
+    Hospital.paginate({}, {populate: [{path: 'requestUser', select: '_id name'},
+                                      {path: 'updatedUser', select: '_id name'}],
+                           page: req.query.page || 1,
+                           docs: req.query.docs || 5})
+            .then(result => {
+                if (result.total > 0) {
                     res.status(200).json({
                         success: true,
-                        hospitales: hospitals
+                        pages: result.pages,
+                        page: result.page,
+                        hospitales: result.docs
                     });
                 } else {
                     res.status(206).json({

@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const uniqueValidator = require('mongoose-unique-validator');
+const mongoosePaginate = require('mongoose-paginate');
 
 let Schema = mongoose.Schema;
 
@@ -16,6 +17,7 @@ const usuarioSchema = new Schema({
   role: { type: String, required: true, default: 'USER_ROLE', enum: validRoles }
 });
 
-usuarioSchema.plugin(uniqueValidator, {message: 'El {PATH} ya se encuentra registrado'})
+usuarioSchema.plugin(uniqueValidator, {message: 'El {PATH} ya se encuentra registrado'});
+usuarioSchema.plugin(mongoosePaginate);
 
-module.exports = mongoose.model('Usuario', usuarioSchema)
+module.exports = mongoose.model('Usuario', usuarioSchema);

@@ -16,14 +16,16 @@ exports.usuarioTest = (req, res) => {
 // Listar Usuarios
 // =======================================================
 exports.getUsuarios = (req, res) => {
-  Usuario.find({})
-    .select('name email img role')
-    .exec()
-    .then(usuarios => {
-      if (usuarios.length > 0) {
+  Usuario.paginate({}, {select: '_id name email',
+                        page: req.query.page || 1,
+                        docs: req.query.docs || 5})
+    .then(result => {
+      if (result.total > 0) {
         res.status(200).json({
           success: true,
-          usuarios: usuarios
+          pages: result.pages,
+          page: result.page,
+          usuarios: result.docs
         });
       } else {
         res.status(200).json({
