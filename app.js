@@ -3,6 +3,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const params = require('./global/params');
+const connection = require('./global/connection');
 
 // Importar Rutas
 let appRoutes = require('./routes/app.route');
@@ -23,13 +24,10 @@ const PORT = process.env.PORT || 25357;
 // const PORT = 25357
 
 // Conexion a BD
-const URI = 'mongodb://mcortegana.documents.azure.com:10255/hospitaldb?ssl=true?';
-let username = 'mcortegana';
-let password = 'J2G8I08i0thXLbF2paOjwmNZp3jeIOGjHyix1YtSberOVswEpQjWnCKitNdRlvuQ9ElGm6h8v2TCrZdh1lI4jg==';
-mongoose.connect(URI, {
+mongoose.connect(connection.URI, {
     auth: {
-      user: username,
-      password: password
+      user: connection.USER,
+      password: connection.PASSWORD
     },
     useNewUrlParser: true
   })
