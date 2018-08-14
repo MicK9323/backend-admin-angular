@@ -10,7 +10,7 @@ exports.generateToken = (payload) => {
     return jwt.sign({usuario: payload},
                     params.SEED,
                     {expiresIn: params.EXPIRED_TIME});
-}
+};
 
 // =======================================================
 // Verificar token
@@ -39,4 +39,4 @@ exports.verifyToken = (req, res, next) => {
             error: error
         })
     }
-}
+};
